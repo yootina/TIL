@@ -1,4 +1,4 @@
-# python 01
+# 01. Intro
 
 ## 01. 설치하기
 1. [파이썬 홈페이지](https://www.python.org/downloads/) 파이썬 공식 홈페이지에서 3.11.5 버전 다운로드 후 설치하기
@@ -80,10 +80,3 @@ print(fruits_dict['마산'])
 ```
 이 코드는 fruits_dict 딕셔너리에서 '마산'에 해당하는 값을 반환합니다.
 ![strawberry](./assets_1/starwberry.png)
-
-## 03. 제어문
-
-### (1). if문 
-
-
-## 04. 반복문
