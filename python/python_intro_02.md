@@ -1,5 +1,5 @@
 # 1. Intro
-## 1.1 Jupyter lab 설치
+## 1.1. Jupyter lab 설치
 ```python
 pip install jupyterlab
 ```
@@ -38,13 +38,6 @@ keyword.kwlist
 
 ### 1.2.2 불리언(boolean)
 - `True`, `False`로 이루어진 타입
-- 참과 거짓을 만들 때 사용하는 연산자의 종류
-    > - `==` 같다
-    > - `!=` 다르다
-    > - `>` 왼쪽이 더 크다
-    > - `<` 오른쪽이 더 크다
-    > - `>=` 왼쪽이 더 크거나 같다
-    > - `<=` 오른쪽이 더 크거나 같다
 
 ### 1.2.3 None
 - **값이없다**는 뜻으로, 'None'이라는 값을 가지고 있는 데이터 타입.
@@ -93,3 +86,380 @@ print('이름:', name, '나이:', age)
 > print(f'홍길동은 {age}살입니다.')
 > 홍길동은 100살입니다.
 > ```
+
+# 2. 연산자
+## 2.1. 산술연산자
+흔히 아는 (`+`, `-`, `*`, `/`)를 연산자라고 표현.
+![연산자](./assets_1/연산자.png)
+
+### divmod() 함수
+`divmod()`는 두개의 숫자를 인자로 받아서 첫번째 숫자를 두번째 숫자로 나눈 몫과 나머지를 한번에 연산할때 사용
+```python
+a = 2
+b = 3
+
+print(divmod(a, b))
+(0, 2)
+```
+`divmod()` 함수는 다음과 같이 일반 연산자를 사용하여 나타낼 수 있음.
+```python
+divmod(a, b) = (a // b, a % b)
+```
+
+## 2.2. 비교연산자
+- 연산자의 종류
+    > - `==` 같다
+    > - `!=` 다르다
+    > - `>` 왼쪽이 더 크다
+    > - `<` 오른쪽이 더 크다
+    > - `>=` 왼쪽이 더 크거나 같다
+    > - `<=` 오른쪽이 더 크거나 같다
+
+## 2.3 논리연산자 (not, and, or)
+조건문이 참(True)인지 거짓(False)인지 판단하는것을 의미.
+> 논리연산자의 결과는 bool타입으로 반환.
+
+**1. and 연산자**
+
+- A **and** B
+- 조건 A 와 조건 B가 모두 참이면 참(True)을 반환.
+- 하나라도 거짓이면 거짓(False)을 반환.
+
+**2. or 연산자**
+- A **or** B
+- 조건 A, B 둘 중 하나라도 참(True)이면 참을 반환.
+- **둘 다 거짓인 경우에만 거짓(False)**
+
+**3. not연산자**
+- **not** A
+- A가 거짓이라면 참(True)을 반환.
+- A가 참이라면 거짓(False)을 반환.
+
+#### 단축평가(and)
+```python
+print(3 and 5)
+print(3 and 0)
+print(0 and 5)
+print(0 and 0)
+5
+0
+0
+0
+```
+
+#### 단축평가(or)
+- 앞에있는게 True면 뒤에있는 결과가 중요하지 않음.
+```python
+print(3 or 5)
+print(3 or 0)
+print(0 or 5)
+print(0 or 0)
+3
+3
+5
+0
+```
+```python
+print(None or 'index.html')
+index.html
+print('login.html' or 'index.html')
+login.html
+```
+
+## 2.4 복합연산자
+
+> - `+=` : 왼쪽 변수에 오른쪽 값을 더하고 그 결과를 왼쪽 변수에 할당
+    > - `-=` : 왼쪽 변수에 오른쪽 값을 빼고 그 결과를 왼쪽 변수에 할당
+    > - `*=` : 왼쪽 변수에 오른쪽 값을 곱하고 그 결과를 왼쪽 변수에 할당
+    > - `/=` : 왼쪽 변수에 오른쪽 값을 나누고 그 결과를 왼쪽 변수에 할당
+    > - `%=` : 왼쪽 변수에 오른쪽 값을 나눈 후 그 **나머지**를 왼쪽 변수에 할당
+    > - `//=` : 왼쪽 변수에 오른쪽 값을 나눈 후 그 **몫**을 왼쪽 변수에 할당
+    > - `**=` : 왼쪽 변수에 오른쪽 값을 **제곱**하고 그 결과를 왼쪽 변수에 할당
+
+## 2.5 기타연산자
+
+**1. concatenation**
+- 숫자가 아닌 자료형은 `+`연산자를 통해 합칠 수 있다.
+```python
+a = 'hi'
+b = 'hello'
+print(a + b)
+'hihello'
+```
+
+**2. containment test**
+- `in`연산자를 통해 속해있는지 여부를 확인 가능
+```python
+print('a' in 'apple')
+print('z' in 'apple')
+True
+False
+```
+```python
+# 리스트에도 가능
+print('1' in [1, 2, 3])
+print('100' in [1, 2, 3])
+True
+False
+```
+
+**3. identity**
+- `is`연산자를 통해 동일한 object인지 확인 가능
+- 양쪽에 있는 데이터가 같냐긴 보다 **데이터가 실제로 있는 위치가 똑같은지** 확인
+```python
+a = 123123
+b = 123123
+print(a is b)
+False
+```
+
+```python
+# -5 ~ 256의 값에 대해서는 같은 object 주소를 참조
+a = 10
+b = 10
+print(a is b)
+True
+```
+
+#### 연산자 우선순위
+0. ()를 통해 그룹
+1. **
+2. 산술연산자(*, /)
+3. 산술연산자(+,-)
+4. 비교연산자, is, in
+5. not
+6. and, or
+
+## 3. 형변환
+
+### 3.1 암시적 형변환
+- 사용자가 의도하지 않았지만 python 내부적으로 자동으로 형변환 하는 경우
+- **boolean, Numbers(int, float, complex)** 만 가능
+
+```python
+a = True
+b = False
+c = 1
+
+print(a + c)
+print(b + c)
+2
+1
+
+# boolean형태는 각각 1과 0으로 나타내어짐.
+```
+
+```python
+int_num = 3
+float_num = 3.3
+complex_num = 3 + 3j
+
+print(int_num + float_num)
+print(int_num + complex_num)
+6.3
+(6+3j)
+
+```
+
+### 3.2 명시적 형변환
+- 위의 상황을 제외하고는 모두 명시적으로 형변환을 해야함
+
+    > 1. str -> int: 형식에 맞는 숫자만 가능
+    > 2. int -> str: 모두 가능
+
+- 암시적 형변환이 되는 경우도 명시적으로 형변환이 가능
+
+    > 1. int(): str, float를 int로 변환
+    > 2. float(): str, int를 float으로 변환
+    > 3. str(): int, float, list, tuple, dict를 문자열로 변환
+    >
+    > **단, str안에 float형태는 int로 변환할 수 없음**
+
+```python
+a = 1
+b = '번'
+print(a + b)
+
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+# a를 str형태로 형변환
+print(str(a) + b)
+```
+
+```python
+# a를 int형태로 형변환
+a = '100'
+print(type(int(a)))
+```
+
+```python
+# input형태에서 int형태로 형변환하기
+age = int(input())
+print(type(age))
+```
+
+```python
+# int형태에서 boolean형태로 형변환하기
+a = 1
+b = 0
+c = 100
+
+print(bool(a))
+print(bool(b))
+print(bool(c))
+True
+False
+True
+```
+
+```python
+# str형태에서 boolean형태로 형변환하기
+print(bool(''))
+print(bool('a'))
+False
+True
+```
+
+```python
+# list에서 boolean형태로 형변환하기
+print(bool([]))
+print(bool([1, 2, 3]))
+False
+True
+```
+
+## 4. 시퀀스(sequence) 자료형
+- 시퀀스(sequence)는 데이터의 순서대로 나열된 자료구조
+- **순서대로 나열되어있다는것은 정렬된것과는 다르다.**
+
+> 1. 리스트(list)
+> 2. 튜플(tuple)
+> 3. 레인지(range)
+> 4. 문자열(string)
+
+### 4.1 List(배열)
+- 선언 : 변수이름 = [value1, value2, value3]
+- 접근 : 변수이름[index]
+
+```python
+l = []
+print(l)
+print(type(l))
+
+[]
+<class 'list'>
+# list인것 확인가능
+```
+
+```python
+location = ['서울', '대전', '부산']
+print(location)
+print(type(location))
+
+['서울', '대전', '부산']
+<class 'list'>
+
+print(location[3])
+
+IndexError: list index out of range
+
+print(location[2])
+print(location[-3])
+
+부산
+서울
+
+# 배열을 선언하고 어떻게 접근하는지 확인
+
+location[2] = '제주'
+print(location)
+
+['서울', '대전', '제주']
+
+# list는 수정가능함을 확인
+```
+
+### 4.2 Tuple
+- 선언 : 변수이름 = (value1, value2, value3)
+- 접근 : 변수이름[index]
+- List와 유사하지만 수정불가능(immutable)하다.
+
+```python
+t = (1, 2, 3)
+print(t)
+print(type(t))
+print(t[2])
+
+(1, 2, 3)
+<class 'tuple'>
+3
+```
+
+```python
+t[2] = 100
+
+TypeError: 'tuple' object does not support item assignment
+# tuple object는 수정이 불가능함.
+```
+
+```python
+divmod(9, 4)
+
+(2, 1)
+
+result = divmod(9, 4)
+print(type(result))
+print(result[0])
+
+<class 'tuple'>
+2
+
+# 내부적으로 변함이 없는 object를 사용할 때에 주로 사용
+```
+
+```python
+# Tuple의 방식1
+x, y = (1, 2)
+print(x, y)
+
+1, 2
+
+# Tuple의 방식2
+x, y = (y, x)
+print(x, y)
+
+2, 1
+```
+
+### 4.3 range
+- 숫자의 시퀀스를 나타내기 위해 사용
+    - `range(n)` (기본형) : `0`부터 `n-1`까지 범위
+    - `range(n, m)` (범위지정) : `n`부터 `m-1`까지 범위
+    - `range(n, m, s)` (범위 및 스텝지정) : `n` 부터 `m-1` 까지 `+s` 만큼 증가
+
+```python
+# range(n)
+
+r = range(5)
+print(r)
+print(type(r))
+
+# range(n, m)
+range(0, 5)
+<class 'range'>
+
+r = range(5, 15)
+print(r)
+
+range(5, 15)
+
+# range(n, m, s)
+r = range(5, 15, 2)
+print(r)
+
+range(5, 15, 2)
+# '레이지하다'는 게으른 연산, 선언할 때 바로 데이터로 바꿔주는게 아니라 내가 사용할때만 형변환해준다.
+list(r)
+
+[5, 7, 9, 11, 13]
+```
