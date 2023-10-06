@@ -463,3 +463,194 @@ list(r)
 
 [5, 7, 9, 11, 13]
 ```
+
+### 4.4 string
+위 기본 데이터 구조 참고
+
+### 4.5 Sequence(시퀀스)에서 사용가능한 연산/함수
+```python
+my_list = [1, 2, 3, 4, 5]
+my_tuple = (11, 12, 13, 14, 15)
+my_range = range(1, 10, 2)
+my_string = '일이삼사오'
+```
+
+#### indexing(인덱싱)
+- '무엇을 가리킨다'의 의미
+- 문자열에서 각각의 문자들은 번호가 매겨져있고, 이것을 이용하여 특정한 문자를 뽑아내는것을 말한다.
+```python
+# indexing
+
+print(my_list[1])
+print(my_tuple[1])
+print(my_range[1])
+print(my_string[1])
+
+2
+22
+3
+이
+```
+![indexing](./assets_1/indexing.png)
+
+#### slicing(슬라이싱)
+- **여러 개의 문자를 한 번에 가져오고 싶을 때**
+- 어디서부터 어디까지의 문자를 가져올 것인지 구간으로 정해서 입력
+- 변수[이상:미만:간격], 이때 간격이 필요없다면 변수[이상:미만]로 표현
+
+```python
+print(my_list[1:3])
+# mt_list의 1부터 3번째 전까지 출력
+print(my_tuple[1:3])
+print(my_range[1:3])
+print(my_string[1:3])
+
+[2, 3]
+(12, 13)
+range(3, 7, 2)
+이삼
+
+# 간격
+print(my_list[1:4:2])
+print(my_range[2:7:2])
+
+[2, 4]
+range(5, 11, 4)
+```
+
+#### in 시퀀스객체
+- 시퀀스 객체에 `in`연산자를 사용했을 때 특정 값이 있으면 True, 없으면 False가 나옴
+```python
+a = [0, 10, 20, 30]
+
+print(1 in a)
+
+False
+```
+
+#### not in 시퀀스객체
+- 반대로 in 앞에 not을 붙이면 특정 값이 없는지 확인
+
+```python
+a = [0, 10, 20, 30]
+
+print(1 in a)
+
+True
+```
+
+#### concatenation(연계)
+
+```python
+a = [0, 1, 2]
+b = [3, 4, 5]
+
+print(a + b)
+
+[0, 1, 2, 3, 4, 5]
+```
+**주의사항**
+- 데이터 타입이 서로 다른 변수를 연산 할 수 없다.
+```python
+a = 'hi'
+b = 1
+
+print(a +b)
+
+TypeError: can only concatenate str (not "int") to str
+```
+
+#### `*` (곱셈) 연산
+- s `*` n : n번만큼 반복하여 더하기
+
+#### `len` 길이
+```python
+hello = 'Hello, world!'
+
+len(hello)
+13
+# 문자열의 길이는 공백까지 포함
+```
+
+#### `min/max` (최솟값/최댓값)
+```python
+min(my_tuple)
+11
+max(my_range)
+9
+```
+
+#### `.count()` 함수
+- 문자열에 해당하는 문자가 몇 개 들어있는지 확인할 때 
+```python
+my_list = [1, 2, 3, 4, 5]
+
+my_list.count(1)
+1
+```
+
+## 5. sequence(시퀀스) 데이터가 아닌 자료구조
+
+### 5.1 `set`
+- 수학에서 사용하는 집합과 동일하게 처리
+- **데이터들의 중복을 허용하지 않음**
+- **데이터들간의 순서가 없기 때문에 인덱싱이나 슬라이싱을 이용하여 값 추출 불가능**
+- 선언 : 변수이름 = {value1, value2, value3}
+
+```python
+my_set_a = {1, 2, 3, 4, 5}
+my_set_b = {1, 3, 5, 7, 9}
+
+# 차집합연산
+print(my_set_a - my_set_b)
+# 합집합(파이프기호) = or
+print(my_set_a | my_set_b)
+# 교집합연산 =  and
+print(my_set_a & my_set_b)
+
+{2, 4}
+{1, 2, 3, 4, 5, 7, 9}
+{1, 3, 5}
+
+# 리스트에 중복된 데이터의 중복을 제거하고 싶을 때
+my_list = [1, 2, 3, 4, 5, 1, 2, 3, 7, 8, 2, 2]
+print(set(my_list))
+```
+
+### 5.2 `dictionary`
+- 선언 : 변수이름 = {key1 : value1, key2 : value2, key3 : value3}
+- 접근 : 변수이름[key]
+- dictionary는 key와 value가 쌍으로 이루어져있다.
+- key에는 immutable한 모든 값을 사용가능하다. (불변값: string, integer...)
+- value에는 모든 데이터가 가능하다. (list, dict도 가능)
+
+```python
+dict_a = {
+    'name': 'tina',
+    'age': 20,
+    'location': 'seoul',
+    'numbers': [1, 2, 3, 4, 5],
+    # 딕셔너리 안에 딕셔너리 넣기
+    'friends': {
+        'a': 21,
+        'b': 22,
+    }
+}
+
+print(dict_a['age'])
+print(dict_a['numbers'][3])
+print(dict_a['friends']['b'])
+20
+4
+22
+```
+
+```python
+# key목록 출력
+dict_a.keys()
+dict_keys(['name', 'age', 'location', 'numbers', 'friends'])
+
+# value목록 출력
+dict_a.values()
+dict_values(['tina', 20, 'seoul', [1, 2, 3, 4, 5], {'a': 21, 'b': 22}])
+```
