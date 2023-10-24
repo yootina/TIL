@@ -8,3 +8,6 @@
 - Git
 - Linux
 - Markdown
+- python
+- algorizm
+- pandas
