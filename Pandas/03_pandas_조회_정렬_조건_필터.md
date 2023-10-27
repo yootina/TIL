@@ -42,7 +42,7 @@ df.info()
 
 ![이미지1](./assets/이미지1.png)
 
-> **object 타입**은 문자열, **category 타입**도 문자열이지만, '남자' / '여자'처럼 카테고리화 할 수 있는 컬럼을 의미 합니다.
+> **category** 타입도 있습니다. **object 타입**은 문자열, **category 타입**도 문자열이지만, '남자' / '여자'처럼 카테고리화 할 수 있는 컬럼을 의미 합니다.
 
 <br/>
 
@@ -175,20 +175,60 @@ Categories (3, int64): [1, 2, 3]
 ## 정렬 (sort)
 
 ### sort_index: index 정렬
+- index 기준으로 정렬합니다. (기본 오름차순이 적용되어 있습니다.)
+- 내림차순 정렬을 적용하려면, ascending=False를 옵션 값으로 설정합니다.
+
+```python
+df.sort_index().head(5)
+
+df.sort_index(ascending=False).head(5)
+```
+</br>
+
 ### sort_values: 값에 대한 정렬
+- 값을 기준으로 행을 정렬합니다.
+- by에 기준이 되는 행을 설정합니다.
+- by에 2개 이상의 컬럼을 지정하여 정렬할 수 있습니다.
+- 오름차순/내림차순을 컬럼 별로 지정할 수 있습니다.
 
+```python
+df.sort_values(by='age').head()
+# 값을 기준으로 행을 정렬할 때 인덱스번호가 같이 바뀌진 않음
 
-##  Indexing, Slicing, 조건 필터링
+# 내림차순 정렬: ascending=False
+df.sort_values(by='age', ascending=False).head()
+```
+![인덱스정렬](./assets/인덱스정렬.png)
 
+</br>
 
-### loc - indexing / slicing
+> **문자열 컬럼도 오름차순/내림차순 정렬**이 가능하며 알파벳 순서로 정렬됩니다.
+```python
+df.sort_values(by='class', ascending=False).head()
+```
+![값에대한정렬](./assets/값에대한정렬.png)
 
-- indexing과 slicing을 할 수 있습니다.
-- slicing은 [시작(포함): 끝(포함)] 규칙에 유의합니다. 둘 다 포함 합니다.
+</br>
+
+> **2개 이상의 컬럼을 기준으로 값 정렬** 할 수 있습니다.
+```python
+df.sort_values(by=['fare', 'age']).head(100)
+# 우선순위는 x, y 중에 x가 우선으로 출력되고 y는 그 다음으로 값 정렬
+```
+![값에대한정렬2](./assets/값에대한정렬2.png)
 
 <br/>
 
-- indexing 예시
+##  Indexing, Slicing, 조건 필터링
+
+## loc - indexing / slicing
+- `loc`는 location의 약어로 사람이 읽을 수 있는 라벨값으로 특정값들을 골라오는 방법이다.
+- indexing과 slicing을 할 수 있습니다.
+- slicing은 **[시작(포함): 끝(포함)]** 규칙에 유의합니다. 둘 다 포함 합니다.
+
+<br/>
+
+- **indexing 예시**
 ```python
 # df.loc[행인덱스, 열인덱스]
 df.loc[5, 'class']
@@ -196,19 +236,21 @@ df.loc[5, 'class']
 ```
 <br/>
 
-- fancy indexing 예시
+- **fancy indexing 예시**
 ```python
 df.loc[2:5, ['age', 'fare', 'who']]
 ```
 <br/>
 
-- slicing 예시
+- **slicing 예시**
 ```python
 df.loc[2:5, 'class':'deck'].head()
 
 df.loc[:6, 'class':'deck']
 ```
+![슬라이싱예시](./assets/슬라이싱예시.png)
 
+<br/>
 
 ### loc - 조건 필터
 - boolean index을 만들어 **조건에 맞는 데이터만 추출**해 낼 수 있습니다. (많이쓰임)
@@ -241,4 +283,83 @@ df.loc[cond1 & cond2]
 
 df.loc[condition1 | condition2]
 # python 에서 'or'역할
+```
+
+## iloc
+- `iloc`는 integer location의 약어로 데이터 프레임의 행이나 칼럼의 순서를 나타내는 정수로 특정 값을 추출해오는 방법이다.
+즉, 컴퓨터가 읽기 좋은 방법으로 데이터가 있는 위치에 접근하는 것이다.
+
+> `df.loc[0]`는 '전체 데이터 프레임에서 인덱스 이름이 0인 행만 추출해줘'라면, `df.iloc[0]`은 '전체 데이터 프레임에서 0번째 행에 있는 값들만 추출해줘' 이다.
+
+#### indexing
+```python
+df.iloc[1, 3]
+```
+#### Fancy Indexing
+```python
+df.iloc[[0, 3, 4], [0, 1, 5, 6]]
+```
+#### Slicing
+```python
+df.iloc[:3, :5]
+```
+<br/>
+
+#### at
+- 하나의 인덱스만 가져옵니다. loc보다 속도가 빠르다는 장점은 있지만, 실질적인 효용성은 떨어집니다. 그냥 loc를 사용해도 똑같은 결과를 얻을 수 있습니다.
+#### iat
+- 하나의 인덱스만 가져옵니다. 속도가 빠르다는 장점은 있지만, 1개의 데이터만 조회 가능합니다. iloc로 대체 사용가능합니다.
+
+### Where
+- cond: True/False로 판단될 수 있는 식
+- other: condition을 만족하지 못하는 요소에 할당 할 값
+
+```python
+# fare 컬럼에 적용하는 예시
+
+df['fare'].where(df['fare'] < 20, 0).tail(10)
+# 'fare'이 20보다 큰게 False로 변경 아닌건 전부 0 으로 변경해달라.
+
+881     7.8958
+882    10.5167
+883    10.5000
+884     7.0500
+885     0.0000
+886    13.0000
+887     0.0000
+888     0.0000
+889     0.0000
+890     7.7500
+Name: fare, dtype: float64
+
+# 전체 DataFrame에 적용시 다음과 같이 조건이 해당하는 값 외에는 모두 NaN 값으로 채워지게 됩니다.
+
+df.where(df['fare'] < 10)
+# 기본값인자로 NaN으로 처리
+# 데이터프레임 전체가 바껴서 컬럼이 하나만 필요한경우 뒤에 인자를 넣어주기
+```
+![이미지3](./assets/이미지3.png)
+
+### isin
+- 특정 값의 포함 여부는 isin 함수를 통해 비교가 가능
+```python
+# c1 = sample['name'] == 'kim'
+# c2 = sample['name'] == 'lee'
+# sample.loc[c1 | c2]
+
+sample['name'].isin(['kim', 'lee'])
+# isin 메소드를 사용하면 찾고싶은 데이터를 리스트형태로 넣어준다. 
+
+0     True
+1     True
+2    False
+3    False
+Name: name, dtype: bool
+
+sample.isin(['kim', 'lee'])
+	name	age
+0	True	False
+1	True	False
+2	False	False
+3	False	False
 ```
