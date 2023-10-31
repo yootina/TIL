@@ -92,6 +92,7 @@ urlpatterns = [
     path('index/', views.index),
 ]
 ```
+![복습1](./assets/복습1.png)
 
 9. `view.py`
 ```python
