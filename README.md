@@ -9,5 +9,8 @@
 - Linux
 - Markdown
 - python
-- algorizm
-- pandas
+- Algorizm
+- Pandas
+- HTML
+- CSS
+- Django
